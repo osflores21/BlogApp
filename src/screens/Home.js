@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
         flexDirection:'row'
     },
     contentInputSearch: {
-        width: wp(65),
+        width: wp(60),
         height: hp(5),
         margin: 10
     },
     contentButtonSearch: {
-        width: wp(23),
+        width: wp(25),
         margin: 10
     },
 

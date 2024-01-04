@@ -13,7 +13,6 @@ const DetailPost = ({ navigation, route }) => {
                 <Text variant="bodyMedium">{content} </Text>
             </Card.Content>
             <Card.Actions>
-                <Button mode="text" onPress={() => navigation.navigate('DetailPost')}>Leer más</Button>
             </Card.Actions>
         </Card>
     )
