@@ -4,11 +4,23 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Step 1: Start the Metro Server
+## Paso 1: Instalar las dependencias
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+```bash
+# using npm
+npm install
 
-To start Metro, run the following command from the _root_ of your React Native project:
+# OR using Yarn
+yarn install
+```
+
+primero,  se deberan instalar las dependencias del package.json 
+
+## Paso 2: Iniciar el servidor de metro
+
+segundo, debera iniciar el servidor de  **Metro**, 
+
+Para inciar Metro , En una terminal que apunte a la raiz del proyecto ejecutar alguno de los siguientes comandos segun sea el caso. 
 
 ```bash
 # using npm
@@ -18,7 +30,7 @@ npm start
 yarn start
 ```
 
-## Step 2: Start your Application
+## Step 3: Iniciar la aplicacion
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
