@@ -15,7 +15,7 @@ const CreatePost = ({navigation}) => {
     let id = '';
   
     for (let i = 0; i < 5; i++) {
-      const digitoAleatorio = Math.floor(Math.random() * 10); // Generar un número aleatorio del 0 al 9
+      const digitoAleatorio = Math.floor(Math.random() * 10);
       id += digitoAleatorio;
     }
   
