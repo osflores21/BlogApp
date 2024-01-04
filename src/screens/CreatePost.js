@@ -10,9 +10,21 @@ const CreatePost = ({navigation}) => {
   const [title, setTitle] = useState();
   const [autor, setAutor] = useState();
   const [content, setContent] = useState();
+
+  const generarID = () => {
+    let id = '';
+  
+    for (let i = 0; i < 5; i++) {
+      const digitoAleatorio = Math.floor(Math.random() * 10); // Generar un número aleatorio del 0 al 9
+      id += digitoAleatorio;
+    }
+  
+    return id;
+  };
+  
  const createPost = () =>{
    const dataToSend = {
-     id: 13,
+     id: generarID(),
      title: title,
      autor: autor,
      content: content,
