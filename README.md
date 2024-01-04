@@ -38,8 +38,6 @@ para iniciar la aplicacion ejecutar el siguiente comando.
 
 ```bash
 # using npm
-npm run android
-
 npx react-native run-android
 ```
 
