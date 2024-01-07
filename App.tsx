@@ -15,7 +15,6 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <PaperProvider>
-
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name='TabNavigation' component={TabNavigation} options={{ headerShown: false }}></Stack.Screen>
