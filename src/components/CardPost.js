@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Button, Text } from 'react-native-paper'
+import { sliceDate } from "../functions/Functions";
 
 const CardPost = ({ autor, content, dateCreate, title, navigation }) => {
-    /*   const { autor, content, dateCreate, id, title } = props; */
-    const formattedDate = dateCreate.slice(0, 10);
+    const formattedDate = sliceDate(dateCreate);
     let first70 = content.substring(0, 70);
     if (content.length > 10) {
         first70 += "...";

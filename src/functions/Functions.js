@@ -1,7 +1,5 @@
-import React from 'react';
-import { Text } from 'react-native';
 
-const FormattedDate = () => {
+export const FormattedDate = () => {
   const getCurrentDate = () => {
     const currentDate = new Date();
 
@@ -17,4 +15,17 @@ const FormattedDate = () => {
   );
 };
 
-export default FormattedDate;
+export const generarID = () => {
+  let id = '';
+
+  for (let i = 0; i < 5; i++) {
+    const digitoAleatorio = Math.floor(Math.random() * 10);
+    id += digitoAleatorio;
+  }
+
+  return id;
+};
+
+export const sliceDate = (date) => {
+  return date.slice(0, 10);
+} 

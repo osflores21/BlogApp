@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { StyleSheet, View } from 'react-native'
+import React from 'react'
+import { StyleSheet } from 'react-native'
 import { Dialog, Portal, Text } from 'react-native-paper'
 
 const MessageDelete = ({ visible }) => {
@@ -7,7 +7,7 @@ const MessageDelete = ({ visible }) => {
   const hideDialog = () => {
     false
   };
- 
+
   return (
     <Portal>
       <Dialog visible={visible}>
@@ -24,7 +24,7 @@ const MessageDelete = ({ visible }) => {
 export default MessageDelete
 
 const styles = StyleSheet.create({
-    title: {
-        textAlign: 'center',
-      },
+  title: {
+    textAlign: 'center',
+  },
 })

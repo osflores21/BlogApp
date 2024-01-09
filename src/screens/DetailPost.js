@@ -1,10 +1,12 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { StyleSheet } from 'react-native'
+import { Card, Text } from 'react-native-paper';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-const DetailPost = ({ navigation, route }) => {
+import { sliceDate } from '../functions/Functions';
+
+const DetailPost = ({ route }) => {
     const { dateCreate, autor, content, title } = route.params;
-    const formattedDate = dateCreate.slice(0, 10);
+    const formattedDate = sliceDate(dateCreate)
     return (
         <Card style={styles.card}>
             <Text style={styles.text} variant="titleSmall">Autor: {autor} </Text>
@@ -34,8 +36,8 @@ const styles = StyleSheet.create({
     card: {
         margin: 10
     },
-    text:{
-        marginTop:10,
-        marginLeft:10
+    text: {
+        marginTop: 10,
+        marginLeft: 10
     }
 })

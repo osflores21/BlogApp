@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, FlatList, ScrollView } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react'
+import { StyleSheet, View, FlatList } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Avatar, Button, Card, Text, TextInput } from 'react-native-paper';
+import { Avatar, Button, TextInput } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
-import axios from 'axios';
+import CardPost from '../components/CardPost';
+import Header from '../components/Header';
+import { fetchData, fetchData2 } from '../services/services';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
@@ -14,99 +16,55 @@ const Home = ({ navigation }) => {
     const [post, setPost] = useState([])
     const [search, setSearch] = useState();
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get("https://blogapi-production-9469.up.railway.app/api");
-            setPost(response.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    const fetchData2 = async () => {
-        try {
-            let apiUrl = "https://blogapi-production-9469.up.railway.app/api/";
-    
-            // Verificar si search no es null o undefined
-            if (search) {
-                apiUrl += `${encodeURIComponent(search)}`;
-            }
-    
-            const response = await axios.get(apiUrl);
-            setPost(response.data);
-            console.log(response.data);
-        } catch (err) {
-            console.log(err);
-        }
+    const allData = async () => {
+        const data = await fetchData();
+        setPost(data);
     };
 
     useEffect(() => {
-        fetchData(search);
+        allData();
     }, []);
 
     useFocusEffect(
-        React.useCallback(() => {
-            fetchData();
+        useCallback(() => {
+            allData();
         }, [])
     );
 
-  
-     
-
-    const renderPostCard = (item) => {
-        const { autor, content, dateCreate, id, title } = item.item;
-        const formattedDate = dateCreate.slice(0, 10);
-        let first70 = content.substring(0, 70);
-        if (content.length > 10) {
-            first70 += "...";
-        }
-        return (
-            <Card style={styles.card}>
-                <Card.Title title={title} subtitle={formattedDate} />
-                <Card.Content>
-                    <Text variant="bodyMedium">{first70} </Text>
-                </Card.Content>
-                <Card.Actions>
-                    <Button mode="text" onPress={() => navigation.navigate('DetailPost', { autor, content, title, dateCreate })}>Leer más</Button>
-                </Card.Actions>
-            </Card>
-        );
-    }
-    if(search === ""){
-        fetchData()
+    if (search === "") {
+        allData();
     }
     return (
         <View style={styles.layout}>
-            <View style={styles.contentTitle}>
-                <Text variant="displayMedium">Personal Blog</Text>
+            <Header />
+            <View style={styles.contentSearch}>
+                <TextInput
+                    style={styles.contentInputSearch}
+                    mode="outlined"
+                    placeholder="Search post by autor, title or content"
+                    value={search}
+                    onChangeText={text => setSearch(text)}
+                />
+                <Button
+                    style={styles.contentButtonSearch}
+                    mode="contained"
+                    onPress={async () => {
+                        const newData = await fetchData2(search);
+                        setPost(newData);
+                    }}>
+                    Search
+                </Button>
             </View>
-
             <View style={styles.contentCard}>
-                <View style={styles.contentSearch}>
-                    <TextInput
-                        style={styles.contentInputSearch}
-                        mode="outlined"
-                        placeholder="Search post by autor, title or content"
-                        value={search}
-                        onChangeText={text => setSearch(text)}
-                    />
-                    <Button
-                        style={styles.contentButtonSearch}
-                        mode="contained"
-                        onPress={() =>{fetchData2(search)}}>
-                        Search
-                    </Button>
-                </View>
-
                 <FlatList
                     data={post}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderPostCard}
+                    renderItem={({ item }) => (
+                        <CardPost {...item} navigation={navigation} />
+                    )}
                     style={styles.flatList}
                 />
-
             </View>
-
         </View>
     )
 }
@@ -129,24 +87,21 @@ const styles = StyleSheet.create({
         width: wp(100),
         margin: 10
     },
-    card: {
-        margin: 10
-    },
     flatList: {
         height: hp(70),
         marginBottom: 10
     },
-    contentSearch:{
-        flexDirection:'row'
+    contentSearch: {
+        flexDirection: 'row',
+        width: wp(100),
     },
     contentInputSearch: {
-        width: wp(60),
+        width: wp(65),
         height: hp(5),
         margin: 10
     },
     contentButtonSearch: {
-        width: wp(25),
-        margin: 10
+        margin: 10,
     },
 
 })

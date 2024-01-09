@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper';
-import axios from 'axios';
-import {DateComponent} from '../functions/Functions';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { editPost } from '../services/services';
+import { sliceDate } from '../functions/Functions';
 
 const EditPost = ({ navigation, route }) => {
-  const { id, dateCreate, autor: initialAutor, content: initialContent, title: initialTitle } = route.params.params;
-  const formattedDate = dateCreate.slice(0, 10);
-  const [title, setTitle] = useState(initialTitle);
-  const [autor, setAutor] = useState(initialAutor);
-  const [content, setContent] = useState(initialContent);
+  const { oldTitle, oldAutor, oldContent, id, dateCreate } = route.params
+  const [title, setTitle] = useState(oldTitle);
+  const [autor, setAutor] = useState(oldAutor);
+  const [content, setContent] = useState(oldContent);
 
-  
-  const editPost = () => {
-    const dataToSend = {
+  const edit = async () => {
+    const data = {
       title: title,
       autor: autor,
       content: content,
-      dateCreate: formattedDate,
+      dateCreate: sliceDate(dateCreate),
     };
-  
-    axios.put(`https://blogapi-production-9469.up.railway.app/api/${id}`, dataToSend)
-      .then((response) => {
-        console.log('Solicitud PUT exitosa', response.data);
-        navigation.navigate('ManagePost');
-      })
-      .catch((err) => {
-        console.log('Error al realizar la solicitud PUT', err);
-      });
-  };
+
+    const result = await editPost(id, data)
+    if (result === 200) {
+      navigation.navigate("ManagePost");
+    }
+  }
   return (
     <View style={styles.contentEditPost}>
       <TextInput
@@ -60,10 +53,9 @@ const EditPost = ({ navigation, route }) => {
         onChangeText={text => setContent(text)}
       />
       <View style={styles.contentButton}>
-        <Button mode="contained" onPress={() => editPost()}>
+        <Button mode="contained" onPress={() => edit()}>
           Update
         </Button>
-
       </View>
     </View>
   )
