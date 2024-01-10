@@ -23,10 +23,11 @@ export const fetchData = async () => {
 
 export const fetchData2 = async (search) => {
   try {
+    let apiURL = '';
     if (search) {
-      URL += `${encodeURIComponent(search)}`;
+      apiURL = URL + `${encodeURIComponent(search)}`;
     }
-    const response = await axios.get(apiUrl);
+    const response = await axios.get(apiURL);
     return response.data;
   } catch (err) {
     console.log(err);
