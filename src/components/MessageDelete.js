@@ -1,21 +1,27 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Dialog, Portal, Text } from 'react-native-paper'
+import { Dialog, Portal, Text, Button } from 'react-native-paper'
 
-const MessageDelete = ({ visible }) => {
+const MessageDelete = ({ visible, setVisible, setDeleteP }) => {
 
   const hideDialog = () => {
-    false
+    setVisible(!visible)
   };
 
   return (
     <Portal>
-      <Dialog visible={visible}>
-        <Dialog.Icon icon="alert" />
-        <Dialog.Title style={styles.title}>This is a title</Dialog.Title>
+      <Dialog visible={visible} onDismiss={hideDialog}>
+        <Dialog.Title style={styles.title}>Delete Post</Dialog.Title>
         <Dialog.Content>
-          <Text variant="bodyMedium">This is simple dialog</Text>
+          <Text  style={styles.subTitle}  variant="bodyMedium">Are you sure to delete this post?</Text>
         </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={hideDialog}>Cancel</Button>
+          <Button onPress={() => {
+            hideDialog();
+            setDeleteP(true);
+          }}>Done</Button>
+        </Dialog.Actions>
       </Dialog>
     </Portal>
   );
@@ -27,4 +33,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
   },
+  subTitle:{
+    textAlign: 'center',
+  }
 })

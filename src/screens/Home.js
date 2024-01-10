@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Avatar, Button, TextInput } from 'react-native-paper';
-import { useFocusEffect } from '@react-navigation/native';
 import CardPost from '../components/CardPost';
 import Header from '../components/Header';
 import { fetchData, fetchData2 } from '../services/services';

@@ -6,11 +6,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import CardManage from '../components/CardManage';
 import Header from '../components/Header';
 import { fetchData } from '../services/services';
-
+import MessageDelete from "../components/MessageDelete";
+import { deletePost } from '../services/services'
 const ManagePost = ({ navigation }) => {
 
   const [visible, setVisible] = useState(false);
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState([]);
+  const [idPost, setIdPost] = useState();
+  const [deleteP, setDeleteP] = useState(false)
 
   const allData = async () => {
     const data = await fetchData();
@@ -27,9 +30,26 @@ const ManagePost = ({ navigation }) => {
     }, [])
   );
 
+  const handleVisible = () => {
+    setVisible(!visible)
+  }
+
+  const deletePo = async () => {
+    const result = await deletePost(idPost)
+    if (result) {
+      setDeleteP(false)
+      allData();
+    }
+  }
+
+  if (deleteP) {
+    deletePo();
+  }
+
   return (
     <View style={styles.layout}>
       <Header />
+      <MessageDelete visible={visible} setVisible={setVisible} idPost={idPost} setDeleteP={setDeleteP} />
       <View style={styles.contentButtonNew}>
         <Button style={styles.buttonNew} mode="contained" onPress={() => navigation.navigate('CreatePost')}>
           New post
@@ -40,7 +60,7 @@ const ManagePost = ({ navigation }) => {
           data={post}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <CardManage {...item} navigation={navigation} />
+            <CardManage {...item} navigation={navigation} handleVisible={handleVisible} setIdPost={setIdPost} />
           )}
           style={styles.flatList}
         />

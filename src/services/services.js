@@ -5,7 +5,7 @@ const URL = "https://blogapi-production-9469.up.railway.app/api/";
 export const deletePost = async (postId) => {
   try {
     const response = await axios.delete(URL + postId);
-    return response.data;
+    return response.status;
   } catch (err) {
     throw err;
   }
