@@ -2,9 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started**
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-
-## Paso 1: Instalar las dependencias
+## Paso 1: Instalar las dependencias.
 
 ```bash
 # using npm
@@ -14,11 +12,11 @@ npm install
 yarn install
 ```
 
-primero,  se deberan instalar las dependencias del package.json 
+Primero,  se deberan instalar las dependencias del package.json 
 
-## Paso 2: Iniciar el servidor de metro
+## Paso 2: Iniciar el servidor de metro.
 
-segundo, debera iniciar el servidor de  **Metro**, 
+Segundo, debera iniciar el servidor de  **Metro**, 
 
 Para inciar Metro , En una terminal que apunte a la raiz del proyecto ejecutar alguno de los siguientes comandos segun sea el caso. 
 
@@ -30,19 +28,41 @@ npm start
 yarn start
 ```
 
-## Step 3: Iniciar la aplicacion
+## Step 3: Iniciar la aplicacion.
 
 para iniciar la aplicacion ejecutar el siguiente comando.
 
-### For Android
 
 ```bash
 # using npm
-npx react-native run-android
+npm run android
 ```
 
+Si todo está configurado correctamente, debería ver su nueva aplicación ejecutándose en su Emulador de Android en breve, siempre que haya configurado su emulador/simulador correctamente.
 
-Si todo está configurado correctamente, debería ver su nueva aplicación ejecutándose en su Emulador de Androiden breve, siempre que haya configurado su emulador/simulador correctamente.
+## Optional
+
+Tambien se puede crear una APK bundle desde android studio
+
+## Step 1: Abrir android studio en la version mas reciente.
+
+## Step 2: Seleccionar y abrir el proyecto (carpeta android).
+
+## Step 3: En la terminal, Ejecutar el siguiente comando en la raiz del proyecto. 
+
+###
+
+```bash
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+```
+###
+
+## Step 4: Ir y seleccionar la opcion que esta en el menu:  Build -> Build bundle(s) / APK -> Build APK(s).
+
+## Step 5: Buscar en la carpeta correspondiente el APK: BlogApp\android\app\build\outputs\apk\debug.
+
+## Step 6: instalar en un dispositivo android, se recomienda que tenga android 13.
 
 
 
